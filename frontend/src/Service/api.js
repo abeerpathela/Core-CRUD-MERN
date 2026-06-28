@@ -1,21 +1,34 @@
 import axios from 'axios';
+import { API_BASE_URL } from '../constants';
 
-// const usersUrl = 'http://localhost:3003/users';
-const usersUrl = 'http://localhost:8080';
+const api = axios.create({
+  baseURL: API_BASE_URL,
+});
 
-export const getUsers = async (id) => {
-    id = id || '';
-    return await axios.get(`${usersUrl}/${id}`);
-}
+export const getUsers = async (params) => {
+  return api.get('/', { params });
+};
 
 export const addUser = async (user) => {
-    return await axios.post(`${usersUrl}/add`, user);
-}
+  return api.post('/add', user);
+};
 
 export const deleteUser = async (id) => {
-    return await axios.delete(`${usersUrl}/${id}`);
-}
+  return api.delete(`/${id}`);
+};
 
 export const editUser = async (id, user) => {
-    return await axios.put(`${usersUrl}/${id}`, user)
-}
+  return api.put(`/${id}`, user);
+};
+
+export const getUserById = async (id) => {
+  return api.get(`/${id}`);
+};
+
+export const getActivities = async () => {
+  return api.get('/activities');
+};
+
+export const getDashboardStats = async () => {
+  return api.get('/dashboard/stats');
+};
